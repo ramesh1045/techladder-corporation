@@ -1,0 +1,31 @@
+.filters-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  input, select {
+    padding: 9px 12px;
+    border: 1px solid #E3E5EA;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+  input { flex: 1; min-width: 200px; }
+}
+
+.video-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  img { width: 56px; height: 34px; object-fit: cover; border-radius: 4px; background: #eee; }
+}
+
+.actions-cell {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.danger-text { color: #C0392B; }

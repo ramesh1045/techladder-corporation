@@ -1,0 +1,87 @@
+<section class="contact-hero">
+  <div class="container">
+    <p class="eyebrow">Get In Touch</p>
+    <h1>Let's Promote Your Brand.</h1>
+  </div>
+</section>
+
+<section class="contact-body">
+  <div class="container contact-grid">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="contact-form">
+      @if (submitted()) {
+        <div class="success-box">
+          <h3>Enquiry sent</h3>
+          <p>Thanks — we received your enquiry and will be in touch soon.</p>
+        </div>
+      } @else {
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" formControlName="name" />
+          @if (form.get('name')?.invalid && form.get('name')?.touched) {
+            <span class="error">Name is required</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="companyName">Company Name</label>
+          <input id="companyName" type="text" formControlName="companyName" />
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" formControlName="phone" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" />
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <span class="error">A valid email is required</span>
+            }
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="service">Service</label>
+          <select id="service" formControlName="service">
+            <option value="">Select a service</option>
+            <option value="Brand Film">Brand Film</option>
+            <option value="Social Media Ads">Social Media Ads</option>
+            <option value="Product Launch">Product Launch</option>
+            <option value="Digital Campaign">Digital Campaign</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" rows="5" formControlName="message"></textarea>
+          @if (form.get('message')?.invalid && form.get('message')?.touched) {
+            <span class="error">Please tell us a bit about your campaign</span>
+          }
+        </div>
+
+        @if (errorMsg()) { <p class="form-error">{{ errorMsg() }}</p> }
+
+        <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+          {{ submitting() ? 'Sending...' : 'Send Enquiry' }}
+        </button>
+      }
+    </form>
+
+    <aside class="contact-side">
+      <div class="side-card">
+        <h4>WhatsApp</h4>
+        <p>+91 00000 00000</p>
+      </div>
+      <div class="side-card">
+        <h4>Email</h4>
+        <p>mediaagencytlc&#64;gmail.com</p>
+      </div>
+      <div class="side-card">
+        <h4>Phone</h4>
+        <p>+91 00000 00000</p>
+      </div>
+    </aside>
+  </div>
+</section>

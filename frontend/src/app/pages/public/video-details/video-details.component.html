@@ -1,0 +1,57 @@
+@if (loading()) {
+  <div class="container state-msg">Loading campaign...</div>
+} @else if (notFound()) {
+  <div class="container state-msg">
+    <h2>Video not found</h2>
+    <a routerLink="/work" class="btn btn-outline">Back to Our Work</a>
+  </div>
+} @else if (video(); as v) {
+  <section class="detail-hero">
+    <div class="container">
+      <div class="player-wrap">
+        <video [src]="mediaUrl(v.videoUrl)" [poster]="mediaUrl(v.thumbnailUrl)" controls preload="metadata"></video>
+      </div>
+
+      <div class="detail-info">
+        <div class="info-main">
+          @if (v.category) { <span class="tag">{{ v.category.name }}</span> }
+          <h1>{{ v.title }}</h1>
+          <p class="description">{{ v.description }}</p>
+        </div>
+        <div class="info-side">
+          <dl>
+            <dt>Client</dt><dd>{{ v.clientName }}</dd>
+            @if (v.category) { <dt>Category</dt><dd>{{ v.category.name }}</dd> }
+            @if (v.campaignType) { <dt>Campaign Type</dt><dd>{{ v.campaignType }}</dd> }
+          </dl>
+        </div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Want an Advertisement Like This?</h3>
+        <a routerLink="/contact" class="btn btn-primary">Start Your Campaign</a>
+      </div>
+    </div>
+  </section>
+
+  @if (related().length > 0) {
+    <section class="related">
+      <div class="container">
+        <h2><span class="sprocket-rail"><span></span><span></span><span></span></span>More From Our Work</h2>
+        <div class="grid">
+          @for (r of related(); track r.id) {
+            <a class="video-card" [routerLink]="['/work', r.id]">
+              <div class="thumb">
+                @if (r.thumbnailUrl) { <img [src]="mediaUrl(r.thumbnailUrl)" [alt]="r.title" /> }
+              </div>
+              <div class="meta">
+                <h4>{{ r.title }}</h4>
+                <p>{{ r.clientName }}</p>
+              </div>
+            </a>
+          }
+        </div>
+      </div>
+    </section>
+  }
+}

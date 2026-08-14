@@ -1,0 +1,78 @@
+<div class="page-head">
+  <h1>Upload Video</h1>
+</div>
+
+<div class="panel">
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-grid">
+    <div class="form-row-2">
+      <div class="form-field">
+        <label for="title">Title</label>
+        <input id="title" type="text" formControlName="title" />
+        @if (form.get('title')?.invalid && form.get('title')?.touched) {
+          <span class="error">Title is required</span>
+        }
+      </div>
+      <div class="form-field">
+        <label for="clientName">Client Name</label>
+        <input id="clientName" type="text" formControlName="clientName" />
+        @if (form.get('clientName')?.invalid && form.get('clientName')?.touched) {
+          <span class="error">Client name is required</span>
+        }
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label for="description">Description</label>
+      <textarea id="description" rows="4" formControlName="description"></textarea>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-field">
+        <label for="categoryId">Category</label>
+        <select id="categoryId" formControlName="categoryId">
+          <option value="">No category</option>
+          @for (c of categories(); track c.id) { <option [value]="c.id">{{ c.name }}</option> }
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="campaignType">Campaign Type</label>
+        <input id="campaignType" type="text" formControlName="campaignType" placeholder="e.g. Product Launch" />
+      </div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-field">
+        <label for="video">Video File (MP4, WebM, MOV)</label>
+        <input id="video" type="file" accept="video/mp4,video/webm,video/quicktime" (change)="onVideoSelected($event)" />
+        @if (videoFileName()) { <span class="hint">Selected: {{ videoFileName() }}</span> }
+      </div>
+      <div class="form-field">
+        <label for="thumbnail">Thumbnail Image</label>
+        <input id="thumbnail" type="file" accept="image/jpeg,image/png,image/webp" (change)="onThumbSelected($event)" />
+        @if (thumbFileName()) { <span class="hint">Selected: {{ thumbFileName() }}</span> }
+      </div>
+    </div>
+
+    <div class="form-row-2">
+      <div class="form-field">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+        </select>
+      </div>
+      <div class="form-field checkbox-field" style="margin-top: 26px;">
+        <input id="featured" type="checkbox" formControlName="featured" />
+        <label for="featured">Feature on homepage</label>
+      </div>
+    </div>
+
+    @if (errorMsg()) { <p class="error">{{ errorMsg() }}</p> }
+
+    <div>
+      <button type="submit" class="btn-primary" [disabled]="submitting()">
+        {{ submitting() ? 'Uploading...' : 'Upload Video' }}
+      </button>
+    </div>
+  </form>
+</div>

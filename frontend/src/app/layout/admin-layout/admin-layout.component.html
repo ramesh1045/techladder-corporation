@@ -1,0 +1,37 @@
+<div class="admin-shell">
+  <aside class="sidebar" [class.open]="sidebarOpen">
+    <div class="sidebar-brand">Tech<span>Ladder</span><small>Admin</small></div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/admin/dashboard" routerLinkActive="active">
+        <span class="icon">&#9635;</span> Dashboard
+      </a>
+      <a routerLink="/admin/videos" routerLinkActive="active">
+        <span class="icon">&#9654;</span> Videos
+      </a>
+      <a routerLink="/admin/videos/upload" routerLinkActive="active">
+        <span class="icon">&#8593;</span> Upload Video
+      </a>
+      <a routerLink="/admin/categories" routerLinkActive="active">
+        <span class="icon">&#9776;</span> Categories
+      </a>
+      <a routerLink="/" target="_blank">
+        <span class="icon">&#8599;</span> View Website
+      </a>
+    </nav>
+
+    <button class="logout-btn" (click)="logout()">Logout</button>
+  </aside>
+
+  <div class="admin-main">
+    <header class="admin-topbar">
+      <button class="hamburger" (click)="toggleSidebar()" aria-label="Toggle sidebar">&#9776;</button>
+      <div class="topbar-title">Admin Panel</div>
+      <div class="topbar-admin">{{ adminEmail }}</div>
+    </header>
+
+    <div class="admin-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

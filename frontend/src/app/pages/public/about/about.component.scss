@@ -1,0 +1,43 @@
+.about-hero {
+  padding: 72px 0 40px;
+  border-bottom: 1px solid var(--stage-line);
+  h1 { font-size: clamp(32px, 5vw, 48px); }
+}
+
+.about-body { padding: 56px 0 100px; }
+
+.about-grid { max-width: 760px; }
+
+.lede { font-size: 19px; color: var(--paper); }
+
+.pillars {
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.pillar {
+  display: flex;
+  align-items: flex-start;
+  border-top: 1px solid var(--stage-line);
+  padding-top: 24px;
+
+  h3 { font-size: 18px; margin-bottom: 6px; }
+  p { margin: 0; max-width: 480px; }
+}
+
+.cta-block {
+  margin-top: 64px;
+  padding: 40px;
+  border: 1px solid var(--stage-line);
+  border-radius: var(--radius);
+  background: var(--stage-raised);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  h3 { margin: 0; font-size: 20px; }
+}

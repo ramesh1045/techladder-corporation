@@ -1,0 +1,121 @@
+/*
+  Admin theme intentionally breaks from the public cinematic dark theme —
+  a clean, light operations console so admin work never gets mistaken for
+  the public marketing site.
+*/
+.admin-shell {
+  --admin-bg: #F5F6F8;
+  --admin-panel: #FFFFFF;
+  --admin-border: #E3E5EA;
+  --admin-text: #1B1D23;
+  --admin-text-dim: #6B7080;
+  --admin-accent: #FF3B2F;
+  --admin-accent-soft: #FFE9E7;
+  --admin-success: #1E8E5A;
+  --admin-warn: #B8860B;
+
+  display: flex;
+  min-height: 100vh;
+  background: var(--admin-bg);
+  color: var(--admin-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--admin-panel);
+  border-right: 1px solid var(--admin-border);
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar-brand {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  padding: 0 8px 24px;
+  span { color: var(--admin-accent); }
+  small { display: block; font-family: inherit; font-size: 10px; letter-spacing: 0.14em; color: var(--admin-text-dim); margin-top: 2px; }
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    color: var(--admin-text-dim);
+    font-weight: 500;
+
+    .icon { font-size: 13px; width: 16px; text-align: center; }
+
+    &:hover { background: var(--admin-bg); color: var(--admin-text); }
+    &.active { background: var(--admin-accent-soft); color: var(--admin-accent); }
+  }
+}
+
+.logout-btn {
+  margin-top: 16px;
+  padding: 11px 12px;
+  border: 1px solid var(--admin-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--admin-text-dim);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+
+  &:hover { background: var(--admin-bg); color: var(--admin-text); }
+}
+
+.admin-main { flex: 1; min-width: 0; }
+
+.admin-topbar {
+  height: 64px;
+  border-bottom: 1px solid var(--admin-border);
+  background: var(--admin-panel);
+  display: flex;
+  align-items: center;
+  padding: 0 28px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.topbar-title { font-weight: 600; font-size: 15px; }
+.topbar-admin { margin-left: auto; font-size: 13px; color: var(--admin-text-dim); }
+
+.hamburger {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 18px;
+}
+
+.admin-content { padding: 28px; max-width: 1200px; }
+
+@media (max-width: 960px) {
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    z-index: 40;
+    box-shadow: 4px 0 24px rgba(0,0,0,0.08);
+    transition: left 0.2s ease;
+    &.open { left: 0; }
+  }
+  .hamburger { display: block; }
+}

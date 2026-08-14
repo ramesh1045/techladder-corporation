@@ -1,0 +1,55 @@
+<div class="page-head">
+  <h1>Dashboard</h1>
+  <a routerLink="/admin/videos/upload" class="btn-primary">+ Upload Video</a>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <span class="label">Total Videos</span>
+    <span class="value">{{ stats().total }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="label">Published</span>
+    <span class="value accent-success">{{ stats().published }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="label">Draft</span>
+    <span class="value accent-warn">{{ stats().draft }}</span>
+  </div>
+  <div class="stat-card">
+    <span class="label">Featured</span>
+    <span class="value accent-brand">{{ stats().featured }}</span>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-head">
+    <h2>Recent Uploads</h2>
+    <a routerLink="/admin/videos">View all</a>
+  </div>
+
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (recent().length === 0) {
+    <p class="muted">No videos uploaded yet. Start by uploading your first advertisement.</p>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr><th>Title</th><th>Client</th><th>Category</th><th>Status</th><th>Featured</th></tr>
+      </thead>
+      <tbody>
+        @for (v of recent(); track v.id) {
+          <tr>
+            <td>
+              <a class="row-link" [routerLink]="['/admin/videos/edit', v.id]">{{ v.title }}</a>
+            </td>
+            <td>{{ v.clientName }}</td>
+            <td>{{ v.category?.name || '—' }}</td>
+            <td><span class="status-pill" [class.published]="v.status === 'published'">{{ v.status }}</span></td>
+            <td>{{ v.featured ? 'Yes' : 'No' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

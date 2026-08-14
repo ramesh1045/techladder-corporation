@@ -1,0 +1,24 @@
+.add-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid #E3E5EA;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+.inline-edit {
+  padding: 6px 10px;
+  border: 1px solid #E3E5EA;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.actions-cell { display: flex; gap: 4px; }
+.danger-text { color: #C0392B; }

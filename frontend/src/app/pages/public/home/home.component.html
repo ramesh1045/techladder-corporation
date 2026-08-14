@@ -1,0 +1,48 @@
+<section class="hero">
+  <div class="container hero-inner">
+    <p class="eyebrow">Now Screening</p>
+    <h1>Your Brand Deserves More Than<br />Just Visibility.</h1>
+    <p class="lede">Creative advertising and digital promotion designed to help your brand get noticed.</p>
+    <div class="hero-actions">
+      <a routerLink="/work" class="btn btn-primary">View Our Work</a>
+      <a routerLink="/contact" class="btn btn-outline">Start Your Campaign</a>
+    </div>
+  </div>
+</section>
+
+<section class="featured">
+  <div class="container">
+    <div class="section-head">
+      <h2><span class="sprocket-rail"><span></span><span></span><span></span></span>See What We Create</h2>
+      <a routerLink="/work" class="btn btn-outline btn-small">View All Our Work</a>
+    </div>
+
+    @if (loading()) {
+      <div class="grid">
+        @for (i of [1,2,3]; track i) {
+          <div class="skeleton-card"></div>
+        }
+      </div>
+    } @else if (featured().length === 0) {
+      <p class="empty">Featured campaigns are on their way — check back soon.</p>
+    } @else {
+      <div class="grid">
+        @for (video of featured(); track video.id) {
+          <a class="video-card" [routerLink]="['/work', video.id]">
+            <div class="thumb">
+              @if (video.thumbnailUrl) {
+                <img [src]="mediaUrl(video.thumbnailUrl)" [alt]="video.title" />
+              }
+              <span class="play-icon">&#9658;</span>
+            </div>
+            <div class="meta">
+              <h3>{{ video.title }}</h3>
+              <p class="client">{{ video.clientName }}</p>
+              @if (video.category) { <span class="tag">{{ video.category.name }}</span> }
+            </div>
+          </a>
+        }
+      </div>
+    }
+  </div>
+</section>

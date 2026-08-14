@@ -1,0 +1,317 @@
+/*
+  TechLadder Corporation — design tokens
+  Subject: advertising / video-production agency portfolio.
+  Direction: cinematic screening-room — near-black stage, projector-white
+  type, one hot "tally light" red used only for live/record cues.
+  Signature element: sprocket-hole rail beside section headings, echoing
+  a film reel — ties directly to "we make ad films" without being literal.
+*/
+
+:root {
+  --stage: #0E0F13;
+  --stage-raised: #17181F;
+  --stage-line: #2A2C35;
+  --paper: #F3F1EA;
+  --paper-dim: #A8A9B3;
+  --tally: #FF3B2F;
+  --tally-dim: #7A1F19;
+  --violet: #7C6CF6;
+
+  --font-display: 'Oswald', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --container: 1180px;
+  --radius: 4px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--stage);
+  color: var(--paper);
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+}
+
+body { min-height: 100vh; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin: 0 0 0.5em;
+  line-height: 1.05;
+}
+
+p { line-height: 1.65; margin: 0 0 1em; color: var(--paper-dim); }
+
+a { color: inherit; text-decoration: none; }
+
+img { max-width: 100%; display: block; }
+
+button { font-family: inherit; cursor: pointer; }
+
+.container {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Eyebrow label with a "tally light" dot — used before section headings
+   across the site, standing in for the recording-light cue of a studio. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--tally);
+  margin-bottom: 14px;
+}
+.eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--tally);
+  box-shadow: 0 0 0 3px rgba(255, 59, 47, 0.18);
+}
+
+/* Sprocket rail: a vertical strip of small squares beside a heading,
+   evoking 35mm film perforations. Purely decorative, applied sparingly. */
+.sprocket-rail {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-right: 18px;
+  vertical-align: middle;
+}
+.sprocket-rail span {
+  width: 7px;
+  height: 7px;
+  background: var(--stage-line);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.btn:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+
+.btn-primary {
+  background: var(--tally);
+  color: #fff;
+}
+.btn-primary:hover { background: #e5342a; transform: translateY(-1px); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--paper);
+  border-color: var(--stage-line);
+}
+.btn-outline:hover { border-color: var(--paper); }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ================================================================
+   Shared admin console UI — global (not view-encapsulated) so every
+   admin page can reuse the same page-head / cards / table primitives
+   without duplicating CSS per component.
+   ================================================================ */
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+
+  h1 { font-family: 'Inter', sans-serif; text-transform: none; font-size: 22px; letter-spacing: 0; color: #1B1D23; }
+}
+
+.btn-primary, .btn-secondary, .btn-danger, .btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+}
+.btn-primary { background: #FF3B2F; color: #fff; }
+.btn-primary:hover { background: #e5342a; }
+.btn-secondary { background: #fff; border-color: #E3E5EA; color: #1B1D23; }
+.btn-secondary:hover { background: #F5F6F8; }
+.btn-danger { background: #fff; border-color: #F3C6C2; color: #C0392B; }
+.btn-danger:hover { background: #FFF3F2; }
+.btn-ghost { background: transparent; color: #6B7080; padding: 8px 12px; }
+.btn-ghost:hover { color: #1B1D23; }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.stat-card {
+  background: #fff;
+  border: 1px solid #E3E5EA;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .label { font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; color: #6B7080; }
+  .value { font-size: 28px; font-weight: 700; color: #1B1D23; }
+  .accent-success { color: #1E8E5A; }
+  .accent-warn { color: #B8860B; }
+  .accent-brand { color: #FF3B2F; }
+}
+@media (max-width: 900px) { .stat-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.panel {
+  background: #fff;
+  border: 1px solid #E3E5EA;
+  border-radius: 10px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+
+  h2 { font-size: 16px; font-weight: 600; text-transform: none; letter-spacing: 0; color: #1B1D23; margin: 0; }
+  a { font-size: 13px; color: #FF3B2F; font-weight: 600; }
+}
+
+.muted { color: #6B7080; font-size: 14px; }
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+
+  th {
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #6B7080;
+    padding: 10px 12px;
+    border-bottom: 1px solid #E3E5EA;
+  }
+  td {
+    padding: 12px;
+    border-bottom: 1px solid #F0F1F4;
+    color: #1B1D23;
+  }
+  tr:last-child td { border-bottom: none; }
+}
+
+.row-link { font-weight: 600; color: #1B1D23; }
+.row-link:hover { color: #FF3B2F; }
+
+.status-pill {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #FFF3EA;
+  color: #B8860B;
+  text-transform: capitalize;
+
+  &.published { background: #E8F7EF; color: #1E8E5A; }
+}
+
+.form-grid {
+  display: grid;
+  gap: 20px;
+}
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  label { font-size: 13px; font-weight: 600; color: #1B1D23; }
+  input, select, textarea {
+    padding: 10px 12px;
+    border: 1px solid #E3E5EA;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    background: #fff;
+    color: #1B1D23;
+  }
+  input:focus, select:focus, textarea:focus { outline: 2px solid #7C6CF6; outline-offset: 1px; }
+  .hint { font-size: 12px; color: #6B7080; }
+  .error { font-size: 12px; color: #C0392B; }
+}
+.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+@media (max-width: 700px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  label { font-size: 14px; font-weight: 500; color: #1B1D23; }
+}
+
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #1B1D23;
+  color: #fff;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 100;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+
+  &.error { background: #C0392B; }
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 16, 20, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 90;
+}
+.modal-box {
+  background: #fff;
+  border-radius: 10px;
+  padding: 28px;
+  width: 100%;
+  max-width: 380px;
+
+  h3 { text-transform: none; font-family: 'Inter', sans-serif; font-size: 17px; letter-spacing: 0; color: #1B1D23; }
+  p { color: #6B7080; margin-bottom: 20px; }
+  .modal-actions { display: flex; justify-content: flex-end; gap: 10px; }
+}

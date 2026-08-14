@@ -1,0 +1,73 @@
+<div class="page-head">
+  <h1>Videos</h1>
+  <a routerLink="/admin/videos/upload" class="btn-primary">+ Upload Video</a>
+</div>
+
+<div class="panel">
+  <div class="filters-row">
+    <input type="search" placeholder="Search title or client..." [(ngModel)]="searchTerm" (keyup.enter)="fetch()" />
+    <select [(ngModel)]="statusFilter" (change)="fetch()">
+      <option value="">All Status</option>
+      <option value="draft">Draft</option>
+      <option value="published">Published</option>
+    </select>
+    <select [(ngModel)]="categoryFilter" (change)="fetch()">
+      <option value="">All Categories</option>
+      @for (c of categories(); track c.id) { <option [value]="c.id">{{ c.name }}</option> }
+    </select>
+    <button class="btn-secondary" (click)="fetch()">Search</button>
+  </div>
+
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (videos().length === 0) {
+    <p class="muted">No videos found. Try adjusting your filters or upload a new video.</p>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Video</th><th>Client</th><th>Category</th><th>Status</th><th>Featured</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (v of videos(); track v.id) {
+          <tr>
+            <td class="video-cell">
+              @if (v.thumbnailUrl) { <img [src]="mediaUrl(v.thumbnailUrl)" [alt]="v.title" /> }
+              <a class="row-link" [routerLink]="['/admin/videos/edit', v.id]">{{ v.title }}</a>
+            </td>
+            <td>{{ v.clientName }}</td>
+            <td>{{ v.category?.name || '—' }}</td>
+            <td>
+              <span class="status-pill" [class.published]="v.status === 'published'">{{ v.status }}</span>
+            </td>
+            <td>{{ v.featured ? 'Yes' : 'No' }}</td>
+            <td class="actions-cell">
+              <button class="btn-ghost" (click)="toggleStatus(v)">{{ v.status === 'published' ? 'Unpublish' : 'Publish' }}</button>
+              <button class="btn-ghost" (click)="toggleFeatured(v)">{{ v.featured ? 'Unfeature' : 'Feature' }}</button>
+              <a class="btn-ghost" [routerLink]="['/admin/videos/edit', v.id]">Edit</a>
+              <button class="btn-ghost danger-text" (click)="askDelete(v.id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@if (toast(); as t) {
+  <div class="toast" [class.error]="t.error">{{ t.text }}</div>
+}
+
+@if (confirmDeleteId()) {
+  <div class="modal-backdrop">
+    <div class="modal-box">
+      <h3>Delete this video?</h3>
+      <p>This will permanently remove the video, thumbnail, and its record. This cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="cancelDelete()">Cancel</button>
+        <button class="btn-danger" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+}

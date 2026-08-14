@@ -1,0 +1,117 @@
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(14, 15, 19, 0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--stage-line);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  span { color: var(--tally); }
+}
+
+.nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+
+  a {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--paper-dim);
+    padding: 6px 0;
+    border-bottom: 2px solid transparent;
+
+    &:hover, &.active { color: var(--paper); border-bottom-color: var(--tally); }
+  }
+
+  .btn-cta {
+    background: var(--tally);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: var(--radius);
+    border-bottom: none !important;
+
+    &:hover { background: #e5342a; }
+  }
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  padding: 8px;
+
+  span { width: 24px; height: 2px; background: var(--paper); }
+}
+
+.nav-mobile {
+  display: none;
+  flex-direction: column;
+  background: var(--stage-raised);
+  border-bottom: 1px solid var(--stage-line);
+
+  a {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--stage-line);
+    font-family: var(--font-display);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &.open { display: flex; }
+}
+
+@media (max-width: 860px) {
+  .nav-desktop { display: none; }
+  .menu-toggle { display: flex; }
+}
+
+.site-footer {
+  border-top: 1px solid var(--stage-line);
+  margin-top: 96px;
+  padding: 56px 0 0;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 40px;
+}
+
+.footer-brand p { max-width: 320px; }
+
+.footer-links, .footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  a:hover { color: var(--tally); }
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--stage-line);
+  padding: 20px 0;
+  font-size: 13px;
+  color: var(--paper-dim);
+}
+
+@media (max-width: 700px) {
+  .footer-inner { grid-template-columns: 1fr; }
+}

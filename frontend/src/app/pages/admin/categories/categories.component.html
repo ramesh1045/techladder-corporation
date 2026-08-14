@@ -1,0 +1,63 @@
+<div class="page-head">
+  <h1>Categories</h1>
+</div>
+
+<div class="panel">
+  <div class="add-row">
+    <input type="text" placeholder="New category name..." [(ngModel)]="newCategoryName" (keyup.enter)="addCategory()" />
+    <button class="btn-primary" (click)="addCategory()">Add Category</button>
+  </div>
+
+  @if (loading()) {
+    <p class="muted">Loading...</p>
+  } @else if (categories().length === 0) {
+    <p class="muted">No categories yet. Add your first one above.</p>
+  } @else {
+    <table class="data-table">
+      <thead>
+        <tr><th>Name</th><th>Slug</th><th>Videos</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        @for (c of categories(); track c.id) {
+          <tr>
+            <td>
+              @if (editingId === c.id) {
+                <input type="text" [(ngModel)]="editingName" (keyup.enter)="saveEdit(c.id)" class="inline-edit" />
+              } @else {
+                {{ c.name }}
+              }
+            </td>
+            <td>{{ c.slug }}</td>
+            <td>{{ c.videoCount ?? 0 }}</td>
+            <td class="actions-cell">
+              @if (editingId === c.id) {
+                <button class="btn-ghost" (click)="saveEdit(c.id)">Save</button>
+                <button class="btn-ghost" (click)="cancelEdit()">Cancel</button>
+              } @else {
+                <button class="btn-ghost" (click)="startEdit(c)">Rename</button>
+                <button class="btn-ghost danger-text" (click)="askDelete(c.id)">Delete</button>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
+
+@if (toast(); as t) {
+  <div class="toast" [class.error]="t.error">{{ t.text }}</div>
+}
+
+@if (confirmDeleteId()) {
+  <div class="modal-backdrop">
+    <div class="modal-box">
+      <h3>Delete this category?</h3>
+      <p>Videos in this category will become uncategorized. This cannot be undone.</p>
+      <div class="modal-actions">
+        <button class="btn-secondary" (click)="cancelDelete()">Cancel</button>
+        <button class="btn-danger" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+}

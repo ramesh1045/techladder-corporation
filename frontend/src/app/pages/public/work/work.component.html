@@ -1,0 +1,60 @@
+<section class="work-hero">
+  <div class="container">
+    <p class="eyebrow">Portfolio</p>
+    <h1>Our Work</h1>
+    <p class="lede">Explore the advertisements and creative campaigns created by TechLadder Corporation.</p>
+  </div>
+</section>
+
+<section class="work-body">
+  <div class="container">
+    <div class="filters">
+      <input
+        type="search"
+        placeholder="Search campaigns or clients..."
+        [(ngModel)]="searchTerm"
+        (keyup.enter)="onFilterChange()"
+      />
+      <select [(ngModel)]="selectedCategory" (change)="onFilterChange()">
+        <option value="">All Categories</option>
+        @for (c of categories(); track c.id) {
+          <option [value]="c.slug">{{ c.name }}</option>
+        }
+      </select>
+      <button class="btn btn-outline btn-small" (click)="onFilterChange()">Search</button>
+    </div>
+
+    @if (loading()) {
+      <div class="grid">
+        @for (i of [1,2,3,4,5,6]; track i) { <div class="skeleton-card"></div> }
+      </div>
+    } @else if (videos().length === 0) {
+      <p class="empty">No campaigns match your filters yet.</p>
+    } @else {
+      <div class="grid">
+        @for (video of videos(); track video.id) {
+          <a class="video-card" [routerLink]="['/work', video.id]">
+            <div class="thumb">
+              @if (video.thumbnailUrl) { <img [src]="mediaUrl(video.thumbnailUrl)" [alt]="video.title" /> }
+              <span class="play-icon">&#9658;</span>
+            </div>
+            <div class="meta">
+              <h3>{{ video.title }}</h3>
+              <p class="client">{{ video.clientName }}</p>
+              @if (video.category) { <span class="tag">{{ video.category.name }}</span> }
+              <span class="watch-btn">Watch &rarr;</span>
+            </div>
+          </a>
+        }
+      </div>
+
+      @if (pagination() && pagination()!.totalPages > 1) {
+        <div class="pagination">
+          <button class="btn btn-outline btn-small" (click)="goToPage(page - 1)" [disabled]="page === 1">Prev</button>
+          <span>Page {{ page }} of {{ pagination()!.totalPages }}</span>
+          <button class="btn btn-outline btn-small" (click)="goToPage(page + 1)" [disabled]="page === pagination()!.totalPages">Next</button>
+        </div>
+      }
+    }
+  </div>
+</section>
